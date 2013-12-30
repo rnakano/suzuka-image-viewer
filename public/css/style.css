@@ -1,0 +1,40 @@
+.image {
+    width: 100%;
+}
+
+.right {
+    display: none;
+}
+
+.left {
+    display: none;
+}
+
+.image-box {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 8px;
+    display: none;
+}
+
+#main {
+    width: 98%;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.book-thumbnail-box {
+    width: 30%;
+    float: left;
+    margin: 1%;
+}
+
+.book-thumbnail-box img {
+    max-width: 100%;
+    height: auto;
+}
+
+.clear-box {
+    clear: both;
+}
