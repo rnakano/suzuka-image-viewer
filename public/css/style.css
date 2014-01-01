@@ -14,7 +14,6 @@
     width: 100%;
     height: 100%;
     position: absolute;
-    top: 8px;
 }
 
 #main {
@@ -36,4 +35,20 @@
 
 .clear-box {
     clear: both;
+}
+
+.slot-box {
+    /* position: absolute; */
+    /* top: 8px; */
+}
+
+.slot-item {
+    float: left;
+    width: 3%;
+    margin: 0.1%;
+}
+
+.slot-item img {
+    max-width: 100%;
+    height: auto;
 }

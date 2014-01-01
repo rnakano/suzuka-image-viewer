@@ -16,11 +16,15 @@ Suzuka.ImageBox = function(div, imageFileList){
     } else if(direction == CENTER) {
       Suzuka.Animation.moveX(imageBox, 0);
     }
-    $("#swipe-box").append(imageBox);
+    div.append(imageBox);
   };
 
   var unloadImage = function(i){
     searchImageBox(i).remove();
+  };
+
+  var unloadAllImage = function(){
+    div.find(".image-box").remove();
   };
 
   var searchImageBox = function(i){
@@ -30,6 +34,7 @@ Suzuka.ImageBox = function(div, imageFileList){
   return {
     setCurrentIndex : function(i){
       if(i < 0 || imageFileList.length <= i) return;
+      unloadAllImage();
       if(i - 1 >= 0) loadImage(i - 1, RIGHT);
       loadImage(i, CENTER);
       if(i + 1 < imageFileList.length) loadImage(i + 1, LEFT);
