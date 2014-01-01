@@ -1,3 +1,5 @@
 DATA_DIR : public/img
 user : user
 pass : pass
+SERVER_HOST : localhost
+SERVER_PORT : 4567

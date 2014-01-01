@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 require 'sinatra'
-require 'yaml'
+require_relative './config'
 require_relative './model/book'
 require_relative './model/image'
-
-CONFIG = YAML.load_file(Dir.pwd + "/config.yaml")
 
 def file_list dir_name
   begin
