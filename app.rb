@@ -22,13 +22,18 @@ def validate_name str
   str =~ /[a-zA-Z_\-]+/
 end
 
+def error_page error_message
+  status 404
+  @error_message = error_message
+  erb :error
+end
+
 get '/viewer/:name' do
   if validate_name(params[:name])
     @book = Book.read_dir(params[:name])
     erb :viewer
   else
-    @error_message = "そんな名前のディレクトリしりません＞＜"
-    erb :error
+    error_page "そんな名前のディレクトリしりません＞＜"
   end
 end
 
@@ -38,7 +43,6 @@ get '/thumbnail/:name/:id' do
     cache_control :public
     Image.new(path).thumbnail_binary
   else
-    @error_message = "そんな画像ありません＞＜"
-    erb :error
+    error_page "そんな画像ありません＞＜"
   end
 end
