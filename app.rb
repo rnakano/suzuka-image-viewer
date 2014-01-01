@@ -37,22 +37,21 @@ get '/viewer/:name' do
   end
 end
 
-get '/thumbnail/:name/:id' do
+def get_image params, method
   if validate_name(params[:name]) and validate_name(params[:id])
     path = [ CONFIG["DATA_DIR"], params[:name], params[:id] ].join("/")
-    cache_control :public
-    Image.new(path).thumbnail_binary
+    cache_control :public, :max_age => 60 * 60
+    content_type File::extname(params[:id])[1..-1].downcase
+    Image.new(path).send(method)
   else
     error_page "そんな画像ありません＞＜"
   end
 end
 
+get '/thumbnail/:name/:id' do
+  get_image(params, :thumbnail_binary)
+end
+
 get '/slot/:name/:id' do
-  if validate_name(params[:name]) and validate_name(params[:id])
-    path = [ CONFIG["DATA_DIR"], params[:name], params[:id] ].join("/")
-    cache_control :public
-    Image.new(path).slot_binary
-  else
-    error_page "そんな画像ありません＞＜"
-  end  
+  get_image(params, :slot_binary)
 end
