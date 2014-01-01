@@ -6,6 +6,7 @@
 
     <script type="text/javascript">
       var imageFileList = <%= @book.image_file_list_json %>;
+      var slotFileList = <%= @book.slot_file_list_json %>;
     </script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -20,9 +21,9 @@
   </head>
   <body>
     <div id="slot-box">
-      <!-- hoge -->
     </div>
     <div class="clear-box"></div>
+
     <div id="swipe-box">
     </div>
   </body>

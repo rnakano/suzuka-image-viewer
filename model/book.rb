@@ -22,6 +22,10 @@ class Book
     JSON.dump(@images.map{|i| "/img/" + @name + "/" + i})
   end
 
+  def slot_file_list_json
+    JSON.dump(@images.map{|i| "/slot/" + @name + "/" + i})
+  end
+
   def self.all
     file_list(CONFIG["DATA_DIR"]).map{|dir_name|
       self.read_dir(dir_name)

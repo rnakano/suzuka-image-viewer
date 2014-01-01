@@ -19,7 +19,7 @@ get '/' do
 end
 
 def validate_name str
-  str =~ /[a-zA-Z_\-]+/
+  str =~ /[0-9a-zA-Z_\-]+/
 end
 
 def error_page error_message
@@ -45,4 +45,14 @@ get '/thumbnail/:name/:id' do
   else
     error_page "そんな画像ありません＞＜"
   end
+end
+
+get '/slot/:name/:id' do
+  if validate_name(params[:name]) and validate_name(params[:id])
+    path = [ CONFIG["DATA_DIR"], params[:name], params[:id] ].join("/")
+    cache_control :public
+    Image.new(path).slot_binary
+  else
+    error_page "そんな画像ありません＞＜"
+  end  
 end

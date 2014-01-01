@@ -26,8 +26,8 @@ var createEmptySlotItem = function(url, k){
 var loadSlot = function(){
   var items = [];
   for(var i = 0; i < 31; i++){
-    var k = Math.floor( (imageFileList.length / 31) * i);
-    var item = createEmptySlotItem(imageFileList[k], k);
+    var k = Math.floor( (slotFileList.length / 31) * i);
+    var item = createEmptySlotItem(slotFileList[k], k);
     items.push(item);
   }
   $("#slot-box").append(items);
