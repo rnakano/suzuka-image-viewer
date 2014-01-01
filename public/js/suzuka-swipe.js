@@ -56,8 +56,7 @@ Suzuka.Swipe = function(){
   
   var installKeyPager = function(box, callbacks){
     box.bind("click", function(event){
-      console.log(event);
-        callbacks.onLeftSwipe();
+      callbacks.onLeftSwipe();
     });
   };
 
