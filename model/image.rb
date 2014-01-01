@@ -3,7 +3,7 @@ require 'tempfile'
 
 class Image
   THUMBNAIL_WIDTH = 600
-  SLOT_WIDTH = 20
+  SLOT_WIDTH = 60
   TEMPFILE_BASENAME = "image"
 
   def initialize path
