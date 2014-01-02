@@ -1,3 +1,5 @@
+require_relative './config'
+
 task :default => [:test]
 
 task :test do
