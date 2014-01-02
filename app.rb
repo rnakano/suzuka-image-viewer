@@ -4,15 +4,6 @@ require_relative './config'
 require_relative './model/book'
 require_relative './model/image'
 
-def file_list dir_name
-  begin
-    Dir.entries(dir_name)
-      .reject{|file_name| file_name =~ /^\./}
-  rescue
-    []
-  end
-end
-
 get '/' do
   @books = Book.all;
   erb :index

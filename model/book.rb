@@ -1,4 +1,5 @@
 require 'json'
+require_relative '../util'
 
 class Book
   def initialize args
@@ -36,7 +37,19 @@ class Book
     images = file_list(CONFIG["DATA_DIR"] + "/" + dir_name).select{|file_name|
       file_name =~ /(jpg|jpeg|png|gif)$/i
     }
-    self.new(:images => images, :name => dir_name)
+    self.new(:images => sort_file(images), :name => dir_name)
+  end
+
+  def self.to_i str
+    if str =~ /^\d+$/
+      str.to_i
+    else
+      Float::INFINITY # integer...?
+    end
+  end
+
+  def self.sort_file file_list
+    file_list.sort_by{|i| i.split(/-|_/).map{|j| to_i(j)} }
   end
 
   attr_reader :name
