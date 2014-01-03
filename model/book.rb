@@ -49,7 +49,7 @@ class Book
   end
 
   def self.sort_file file_list
-    file_list.sort_by{|i| i.split(/-|_/).map{|j| to_i(j)} }
+    file_list.sort_by{|i| File::basename(i, ".*").split(/-|_/).map{|j| to_i(j)} }
   end
 
   attr_reader :name
