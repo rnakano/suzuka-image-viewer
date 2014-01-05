@@ -3,7 +3,11 @@ Suzuka.ImageBox = function(div, imageFileList){
   var currentBoxIndex = 0;
   
   var createEmptyImageBox = function(i, url){
-    return $("<div>").addClass("image-box").append($("<img>").attr("src", url).addClass("image")).attr("id", "image-box-" + i);
+    var imagebox = $("<div>").addClass("image-box");
+    var img = $("<img>").bind("load", function(){
+      sizing($(this), $(window));
+    }).attr("src", url);
+    return imagebox.append(img).attr("id", "image-box-" + i);
   };
 
   var loadImage = function(i, direction){
@@ -29,6 +33,16 @@ Suzuka.ImageBox = function(div, imageFileList){
 
   var searchImageBox = function(i){
     return $("#image-box-" + i);  
+  };
+
+  var sizing = function(img, fit){
+    var wscale = fit.width() / img.width();
+    if(fit.height() < img.height() * wscale) {
+      var hscale = fit.height() / img.height();
+      img.css({ "height" : "100%" });
+    } else {
+      img.css({ "width" : "100%" });
+    }
   };
 
   return {
