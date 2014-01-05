@@ -40,16 +40,11 @@ class Book
     self.new(:images => sort_file(images), :name => dir_name)
   end
 
-  def self.to_i str
-    if str =~ /^\d+$/
-      str.to_i
-    else
-      Float::INFINITY # integer...?
-    end
-  end
-
   def self.sort_file file_list
-    file_list.sort_by{|i| File::basename(i, ".*").split(/-|_/).map{|j| to_i(j)} }
+    file_list.sort_by{|i| 
+      arr = i.scan(/\d+/)
+      arr.empty? ? [ Float::INFINITY ] : arr.map(&:to_i)
+    }
   end
 
   attr_reader :name
