@@ -5,8 +5,9 @@ Suzuka.ImageBox = function(div, imageFileList){
   var createEmptyImageBox = function(i, url){
     var imagebox = $("<div>").addClass("image-box");
     var img = $("<img>").bind("load", function(){
+      $(this).removeClass("image");
       sizing($(this), $(window));
-    }).attr("src", url);
+    }).attr("src", url).addClass("image");
     return imagebox.append(img).attr("id", "image-box-" + i);
   };
 
@@ -36,13 +37,11 @@ Suzuka.ImageBox = function(div, imageFileList){
   };
 
   var sizing = function(img, fit){
+    var scale;
     var wscale = fit.width() / img.width();
-    if(fit.height() < img.height() * wscale) {
-      var hscale = fit.height() / img.height();
-      img.css({ "height" : "100%" });
-    } else {
-      img.css({ "width" : "100%" });
-    }
+    var hscale = fit.height() / img.height();
+    scale = (fit.height() < img.height() * wscale) ? hscale : wscale;
+    img.css({ "width" : (img.width() * scale) + "px", "height" : (img.height() * scale) + "px"});
   };
 
   return {
