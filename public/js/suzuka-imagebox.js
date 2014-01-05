@@ -41,7 +41,8 @@ Suzuka.ImageBox = function(div, imageFileList){
     var wscale = fit.width() / img.width();
     var hscale = fit.height() / img.height();
     scale = (fit.height() < img.height() * wscale) ? hscale : wscale;
-    img.css({ "width" : (img.width() * scale) + "px", "height" : (img.height() * scale) + "px"});
+    img.css({ "width"  : Math.ceil(img.width() * scale) + "px",
+              "height" : Math.ceil(img.height() * scale) + "px"});
   };
 
   return {
