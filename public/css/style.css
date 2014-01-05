@@ -1,11 +1,3 @@
-.right {
-    display: none;
-}
-
-.left {
-    display: none;
-}
-
 .viewer-main {
     margin: 0px;
 }
@@ -19,10 +11,6 @@
     height: 100%;
     position: absolute;
     text-align: center;
-}
-
-.image-box img {
-    /* max-height: 100%; */
 }
 
 #main {
@@ -44,11 +32,6 @@
 
 .clear-box {
     clear: both;
-}
-
-.slot-box {
-    /* position: absolute; */
-    /* top: 8px; */
 }
 
 .slot-item {
