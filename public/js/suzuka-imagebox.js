@@ -1,19 +1,36 @@
 Suzuka.ImageBox = function(div, imageFileList){
   var LEFT = 1, RIGHT = -1, CENTER = 0;
   var currentBoxIndex = 0;
+
+  var pixelRetio = function(){
+    if(window.devicePixelRatio) {
+      return window.devicePixelRatio;
+    } else {
+      return 1;
+    }
+  };
+
+  var imageURL = function(url, printSize){
+    var w = Math.ceil(printSize.width * pixelRetio());
+    var h = Math.ceil(printSize.height * pixelRetio());
+    return url + "?w=" + w + "&h=" + h;
+  };
   
-  var createEmptyImageBox = function(i, url){
+  var createEmptyImageBox = function(i){
+    var url = imageFileList[i].path;
+    var rawSize = imageFileList[i].size;
     var imagebox = $("<div>").addClass("image-box");
-    var img = $("<img>").bind("load", function(){
-      $(this).removeClass("image");
-      sizing($(this), $(window));
-    }).attr("src", url).addClass("image");
+    var printSize = sizing(rawSize, $(window));
+    var img = $("<img>").css({
+      "width"  : printSize.width,
+      "height" : printSize.height
+    }).attr("src", imageURL(url, printSize));
     return imagebox.append(img).attr("id", "image-box-" + i);
   };
 
   var loadImage = function(i, direction){
     var width = $(window).width();
-    var imageBox = createEmptyImageBox(i, imageFileList[i]);
+    var imageBox = createEmptyImageBox(i);
     if(direction == LEFT) {
       Suzuka.Animation.moveX(imageBox, width + 50);
     } else if(direction == RIGHT) {
@@ -38,11 +55,11 @@ Suzuka.ImageBox = function(div, imageFileList){
 
   var sizing = function(img, fit){
     var scale;
-    var wscale = fit.width() / img.width();
-    var hscale = fit.height() / img.height();
-    scale = (fit.height() < img.height() * wscale) ? hscale : wscale;
-    img.css({ "width"  : Math.ceil(img.width() * scale) + "px",
-              "height" : Math.ceil(img.height() * scale) + "px"});
+    var wscale = fit.width() / img.width;
+    var hscale = fit.height() / img.height;
+    scale = (fit.height() < img.height * wscale) ? hscale : wscale;
+    return { "width"  : Math.ceil(img.width * scale),
+             "height" : Math.ceil(img.height * scale)};
   };
 
   return {

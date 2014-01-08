@@ -1,5 +1,7 @@
 require 'json'
 require_relative '../util'
+require_relative '../config'
+require_relative './image'
 
 class Book
   def initialize args
@@ -20,7 +22,10 @@ class Book
   end
 
   def image_file_list_json
-    JSON.dump(@images.map{|i| "/img/" + @name + "/" + i})
+    JSON.dump(@images.map{|i| 
+                { :path => "/img/" + @name + "/" + i,
+                  :size => Image.new(@name, i).size }
+              })
   end
 
   def slot_file_list_json

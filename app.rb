@@ -30,10 +30,9 @@ end
 
 def get_image params, method
   if validate_name(params[:name]) and validate_name(params[:id])
-    path = [ CONFIG["DATA_DIR"], params[:name], params[:id] ].join("/")
     cache_control :public, :max_age => 60 * 15
     content_type File::extname(params[:id])[1..-1].downcase
-    Image.new(path).send(method)
+    Image.new(params[:name], params[:id]).send(method)
   else
     error_page "そんな画像ありません＞＜"
   end

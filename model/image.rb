@@ -1,13 +1,14 @@
 require 'rmagick'
 require 'tempfile'
+require_relative '../config'
 
 class Image
   THUMBNAIL_WIDTH = 600
   SLOT_WIDTH = 60
   TEMPFILE_BASENAME = "image"
 
-  def initialize path
-    @path = path
+  def initialize dirname, filename
+    @path = [ CONFIG["DATA_DIR"], dirname, filename ].join("/")
   end
 
   def resize width
@@ -25,5 +26,10 @@ class Image
 
   def slot_binary
     resize(SLOT_WIDTH)
+  end
+
+  def size
+    image = Magick::Image.read(@path).first
+    { :width => image.columns, :height => image.rows }
   end
 end
