@@ -22,10 +22,12 @@ class Book
   end
 
   def image_file_list_json
-    JSON.dump(@images.map{|i| 
-                { :path => "/img/" + @name + "/" + i,
-                  :size => Image.new(@name, i).size }
-              })
+    images = @images.map{|i| Image.new(@name, i) }
+    path = @images.map{|i| "/img/" + @name + "/" + i }
+    sizes = Image.sizes(images)
+    JSON.dump(path.zip(sizes).map{|pathi, sizei|
+      { :path => pathi, :size => sizei }
+    })
   end
 
   def slot_file_list_json
