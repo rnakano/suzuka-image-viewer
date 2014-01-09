@@ -29,7 +29,7 @@ class Image
   end
 
   def size
-    image = Magick::Image.read(@path).first
-    { :width => image.columns, :height => image.rows }
+    w, h = `identify -format "%w %h" #{@path}`.split(" ").map(&:to_i)
+    { :width => w, :height => h }
   end
 end
