@@ -7,8 +7,8 @@ task :test do
 end
 
 task :stop do
-  if File.exists?("rack.pid")
-    pid = File.open("rack.pid"){|f| f.read}.to_i
+  if File.exists?("log/rack.pid")
+    pid = File.open("log/rack.pid"){|f| f.read}.to_i
     Process.kill(:INT, pid)
     sleep 1 # FIXME
   end
@@ -20,7 +20,7 @@ task :update do
 end
 
 task :start do
-  sh "bundle exec rackup -s thin -o #{CONFIG['SERVER_HOST']} -p #{CONFIG['SERVER_PORT']} -E production -D -P rack.pid"
+  sh "bundle exec rackup -s thin -o #{CONFIG['SERVER_HOST']} -p #{CONFIG['SERVER_PORT']} -E production -D -P log/rack.pid"
 end
 
 task :upgrade => [:stop, :update, :start]
