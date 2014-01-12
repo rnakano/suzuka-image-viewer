@@ -1,3 +1,4 @@
 public/img
 Gemfile.lock
 rack.pid
+log/*.log
