@@ -6,6 +6,7 @@ class Image
   THUMBNAIL_WIDTH = 600
   SLOT_WIDTH = 60
   TEMPFILE_BASENAME = "image"
+  @@size_cache = {}
 
   def initialize dirname, filename
     @path = [ CONFIG["DATA_DIR"], dirname, filename ].join("/")
@@ -37,9 +38,13 @@ class Image
 
   def self.sizes arr
     path = arr.map{|image| image.path}
-    `identify -format "%w %h\n" #{path.join(' ')}`
+    key = path.join(",")
+    return @@size_cache[key] if @@size_cache[key]
+    value = `identify -format "%w %h\n" #{path.join(' ')}`
       .split("\n").map{|line| line.split(" ").map(&:to_i)}
       .map{|w, h| { :width => w, :height => h} }
+    @@size_cache[key] = value
+    value
   end
 
   attr_reader :path
