@@ -17,6 +17,8 @@ class Image
     thumbnail_image = image.resize(scale)
     tempfile = Tempfile.new(TEMPFILE_BASENAME)
     thumbnail_image.write(tempfile.path)
+    image.destroy!
+    thumbnail_image.destroy!
     tempfile.read
   end
 
