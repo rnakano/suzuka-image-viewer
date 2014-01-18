@@ -1,0 +1,7 @@
+<div class="clear-box"></div>
+<% books.each{|book| %>
+<div class="book-thumbnail-box">
+  <a href="<%= book.viewer_link %>"><img src="<%= book.thumbnail %>" /> </a>
+</div>        
+<% } %>
+<div class="clear-box"></div>

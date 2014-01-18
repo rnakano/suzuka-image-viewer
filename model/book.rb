@@ -35,8 +35,10 @@ class Book
   end
 
   def self.all
-    file_list(CONFIG["DATA_DIR"]).map{|dir_name|
-      self.read_dir(dir_name)
+    file_list(CONFIG["DATA_DIR"])
+      .sort_by{|dir_name| File::atime(CONFIG["DATA_DIR"] + "/" + dir_name) }
+      .reverse
+      .map{|dir_name| self.read_dir(dir_name)
     }
   end
 

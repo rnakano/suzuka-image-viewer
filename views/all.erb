@@ -13,10 +13,10 @@
     <title>Suzuka</title>
   </head>
   <body>
-    <div id="main">
+    <div id="main" dropzone>
+      <div id="status">
+      </div>
       <%= erb :_books, :locals => {:books => @books} %>
     </div>
-
-    <a href="/all"> <button type="button">全部見る</button> </a>
   </body>
 </html>

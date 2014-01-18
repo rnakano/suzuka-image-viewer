@@ -5,8 +5,15 @@ require_relative './model/book'
 require_relative './model/image'
 
 get '/' do
-  @books = Book.all;
+  # get recent books
+  @books = Book.all[0...6]
   erb :index
+end
+
+get '/all' do
+  # older sort
+  @books = Book.all.reverse
+  erb :all  
 end
 
 def validate_name str
