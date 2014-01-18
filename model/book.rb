@@ -36,7 +36,7 @@ class Book
 
   def self.all
     file_list(CONFIG["DATA_DIR"])
-      .sort_by{|dir_name| File::atime(CONFIG["DATA_DIR"] + "/" + dir_name) }
+      .sort_by{|dir_name| File::mtime(CONFIG["DATA_DIR"] + "/" + dir_name) }
       .reverse
       .map{|dir_name| self.read_dir(dir_name)
     }
