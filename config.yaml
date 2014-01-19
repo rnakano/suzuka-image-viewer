@@ -1,4 +1,5 @@
 DATA_DIR : public/img
+DATA_VIDEO_DIR : public/video
 user : user
 pass : pass
 SERVER_HOST : localhost
