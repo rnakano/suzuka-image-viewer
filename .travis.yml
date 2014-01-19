@@ -1,6 +1,6 @@
 language: ruby
 before_install:
  - sudo apt-get update
- - sudo apt-get install imagemagick libmagick++-dev
+ - sudo apt-get install imagemagick libmagick++-dev ffmpeg
 rvm:
   - 1.9.3
