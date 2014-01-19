@@ -17,6 +17,11 @@ get '/all' do
   erb :all  
 end
 
+get '/video' do
+  @videos = Video.all
+  erb :video_list
+end
+
 def validate_name str
   str =~ /[0-9a-zA-Z_\-]+/
 end

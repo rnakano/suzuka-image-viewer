@@ -1,0 +1,15 @@
+<div class="clear-box"></div>
+<% videos.each{|video| %>
+<%= video.name %> <br />
+<div class="book-thumbnail-box">
+  <a href="<%= video.view_path %>"><img src="<%= video.thumbnail_path(1) %>" /> </a>
+</div>
+<div class="book-thumbnail-box">
+  <a href="<%= video.view_path %>"><img src="<%= video.thumbnail_path(10) %>" /> </a>
+</div>
+<div class="book-thumbnail-box">
+  <a href="<%= video.view_path %>"><img src="<%= video.thumbnail_path(20) %>" /> </a>
+</div>
+<div class="clear-box"></div>
+<% } %>
+<div class="clear-box"></div>
