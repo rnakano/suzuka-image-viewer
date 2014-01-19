@@ -3,7 +3,7 @@ require_relative './config'
 task :default => [:test]
 
 task :test do
-  sh "bundle exec ruby test/driver.rb"
+  sh "ruby test/driver.rb"
 end
 
 task :stop do
