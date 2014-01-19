@@ -1,4 +1,4 @@
-require 'rmagick'
+require 'RMagick'
 require 'tempfile'
 require_relative '../config'
 
