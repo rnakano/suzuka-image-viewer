@@ -3,6 +3,7 @@ require 'sinatra'
 require_relative './config'
 require_relative './model/book'
 require_relative './model/image'
+require_relative './model/video'
 
 get '/' do
   # get recent books
@@ -51,4 +52,10 @@ end
 
 get '/slot/:name/:id' do
   get_image(params, :slot_binary)
+end
+
+get '/video-thumbnail/:name/:number' do
+  video = Video.new(params[:name])
+  content_type :jpg
+  video.thumbnail_binary params[:number].to_i
 end
