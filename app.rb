@@ -62,5 +62,7 @@ end
 get '/video-thumbnail/:name/:number' do
   video = Video.new(params[:name])
   content_type :jpg
-  video.thumbnail_binary params[:number].to_i
+  cache_control :public, :max_age => 60 * 15
+  path = video.thumbnail(params[:number].to_i)
+  send_file path
 end

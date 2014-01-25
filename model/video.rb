@@ -28,12 +28,14 @@ class Video
     "video/" + @filename
   end
 
-  def thumbnail_binary thumbnail_number
+  def thumbnail thumbnail_number
+    thumbnail_dir = "public/video-thumbnail/#{name}"
+    Dir.mkdir(thumbnail_dir) unless File.exists?(thumbnail_dir)
+    thumbnail_path = "#{thumbnail_dir}/#{thumbnail_number}"
     movie = FFMPEG::Movie.new(@path)
     target_sec = movie.duration * (thumbnail_number.to_f / THUMBNAILS)
-    tempfile = Tempfile.new([TEMPFILE_BASENAME, ".jpg"])
-    write_thumbnail(@path, tempfile.path, target_sec.to_i)
-    tempfile.read
+    write_thumbnail(@path, thumbnail_path, target_sec.to_i)
+    thumbnail_path
   end
 
   def thumbnail_path n

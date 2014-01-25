@@ -1,5 +1,6 @@
 public/img
 public/video
+public/video-thumbnail
 Gemfile.lock
 log/rack.pid
 log/*.log
