@@ -41,11 +41,19 @@ get '/viewer/:name' do
   end
 end
 
+def make_cache cache_path, data
+  cache_dir = File.dirname(cache_path)
+  FileUtils.mkdir_p(cache_dir) unless File.exists?(cache_dir)
+  File.open(cache_path, "wb"){|f| f.write(data) }
+  data
+end
+
 def get_image params, method
   if validate_name(params[:name]) and validate_name(params[:id])
     cache_control :public, :max_age => 60 * 15
-    content_type File::extname(params[:id])[1..-1].downcase
-    Image.new(params[:name], params[:id]).send(method)
+    content_type File.extname(params[:id])[1..-1].downcase
+    data = Image.new(params[:name], params[:id]).send(method)
+    make_cache("public/thumbnail/#{params[:name]}/#{params[:id]}", data)
   else
     error_page "そんな画像ありません＞＜"
   end
