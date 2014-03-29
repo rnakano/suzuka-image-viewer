@@ -41,7 +41,8 @@ class Image
     path = arr.map{|image| image.path}
     key = path.join(",")
     return @@size_cache[key] if @@size_cache[key]
-    value = `identify -format "%w %h\n" #{Shellwords.escape(path.join(' '))}`
+    escaped_path = path.map{|i| Shellwords.escape(i) }
+    value = `identify -format "%w %h\n" #{escaped_path.join(' ')}`
       .split("\n").map{|line| line.split(" ").map(&:to_i)}
       .map{|w, h| { :width => w, :height => h} }
     @@size_cache[key] = value
