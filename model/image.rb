@@ -1,5 +1,6 @@
 require 'RMagick'
 require 'tempfile'
+require 'shellwords'
 require_relative '../config'
 
 class Image
@@ -32,7 +33,7 @@ class Image
   end
 
   def size
-    w, h = `identify -format "%w %h" #{@path}`.split(" ").map(&:to_i)
+    w, h = `identify -format "%w %h" "#{@path}"`.split(" ").map(&:to_i)
     { :width => w, :height => h }
   end
 
@@ -40,7 +41,7 @@ class Image
     path = arr.map{|image| image.path}
     key = path.join(",")
     return @@size_cache[key] if @@size_cache[key]
-    value = `identify -format "%w %h\n" #{path.join(' ')}`
+    value = `identify -format "%w %h\n" #{Shellwords.escape(path.join(' '))}`
       .split("\n").map{|line| line.split(" ").map(&:to_i)}
       .map{|w, h| { :width => w, :height => h} }
     @@size_cache[key] = value
