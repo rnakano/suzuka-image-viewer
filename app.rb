@@ -48,19 +48,23 @@ def make_cache cache_path, data
   data
 end
 
-def get_image params, method
+def get_image params, method, cache = false
   if validate_name(params[:name]) and validate_name(params[:id])
     cache_control :public, :max_age => 60 * 15
     content_type File.extname(params[:id])[1..-1].downcase
     data = Image.new(params[:name], params[:id]).send(method)
-    make_cache("public/thumbnail/#{params[:name]}/#{params[:id]}", data)
+    if cache
+      make_cache("public/thumbnail/#{params[:name]}/#{params[:id]}", data)
+    else
+      data
+    end
   else
     error_page "そんな画像ありません＞＜"
   end
 end
 
 get '/thumbnail/:name/:id' do
-  get_image(params, :thumbnail_binary)
+  get_image(params, :thumbnail_binary, true)
 end
 
 get '/slot/:name/:id' do
