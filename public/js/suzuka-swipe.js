@@ -55,8 +55,14 @@ Suzuka.Swipe = function(){
   var LEFT_KEY = 37;
   
   var installKeyPager = function(box, callbacks){
-    box.bind("click", function(event){
-      callbacks.onLeftSwipe();
+    var RIGHT_KEY = 39;
+    var LEFT_KEY = 37;
+    $("html").bind("keyup", function(event){
+      if(event.which == RIGHT_KEY) {
+        callbacks.onLeftSwipe();
+      } else if (event.which == LEFT_KEY){
+        callbacks.onRightSwipe();
+      }
     });
   };
 
