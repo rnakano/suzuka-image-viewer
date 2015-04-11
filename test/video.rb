@@ -7,6 +7,7 @@ require 'tmpdir'
 
 class TestVideo < MiniTest::Unit::TestCase
   def test_all
+    skip("video function is supported only osx")
     Dir.mktmpdir{|dir|
       File.open("#{dir}/a.mp4", "w").close
       File.open("#{dir}/b.mp4", "w").close
